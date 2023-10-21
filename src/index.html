@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/scss/main.scss">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/6241600740.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <main class="user-select-none">
+        <div class="m-5">
+            <h1 class="h1 text-center">Just in Timer</h1>
+        </div>
+        <div class="position-absolute top-50 start-50 translate-middle">
+            <div class="container d-flex justify-content-center">
+                <div class="card">
+                    <h1 id="timer" class="text-center display-1 py-1 px-3">00:00.000</h1>
+                </div>
+            </div>
+            <div class="container d-flex justify-content-center my-2">
+                <div class="btn-group py-1" role="group">
+                    <button id="play" type="button" class="btn btn-outline-success"><i class="fa-solid fa-play"></i></button>
+                    <button id="pause" type="button" class="btn btn-outline-danger"><i class="fa-solid fa-pause"></i></button>
+                    <button id="stop" type="button" class="btn btn-outline-secondary"><i class="fa-solid fa-stop"></i></button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script type="module" src="./assets/js/main.js"></script>
+    <script>
+        const abortController = new AbortController();
+        var timer = null;
+        var timer_value = 0;
+        $('#play').on('click', function()
+        {
+            timestamp = new Date().getTime();
+            prev_timer_value = timer_value;
+            timer = setInterval( () => {
+                timer_value = (new Date().getTime()) - timestamp + prev_timer_value;
+                $('#timer').html(displayTimer(timer_value));
+            }, 1);
+        });
+
+        $('#pause').on('click', function()
+        {
+            clearInterval(timer);
+        });
+
+        $('#stop').on('click', function()
+        {
+            clearInterval(timer);
+            timer_value = 0;
+            $('#timer').html(displayTimer(timer_value));
+        });
+
+        function displayTimer(timestamp)
+        {
+            milisseconds = (timestamp % 1000).toString().padStart(3, '0');
+            seconds = parseInt((timestamp / 1000)%60).toString().padStart(2, '0');
+            minutes = parseInt(timestamp / 60000).toString().padStart(2, '0');
+            return minutes+':'+seconds+'.'+milisseconds;
+        }
+        
+    </script>
+</body>
+</html>

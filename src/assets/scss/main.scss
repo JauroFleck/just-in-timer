@@ -1,0 +1,18 @@
+@import "./abstracts/variables";
+
+@import "~bootstrap/scss/_functions.scss";
+@import "~bootstrap/scss/_variables.scss";
+@import "~bootstrap/scss/_mixins.scss";
+
+// Custom bootstrap style
+
+//
+
+@import "~bootstrap/scss/bootstrap";
+
+@import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro&display=swap');
+
+#timer {
+  font-family: 'Anonymous Pro', monospace;
+  font-size: 6rem;
+}
