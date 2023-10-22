@@ -34,22 +34,33 @@
         var timer_value = 0;
         $('#play').on('click', function()
         {
-            timestamp = new Date().getTime();
-            prev_timer_value = timer_value;
-            timer = setInterval( () => {
-                timer_value = (new Date().getTime()) - timestamp + prev_timer_value;
-                $('#timer').html(displayTimer(timer_value));
-            }, 1);
+            if (!timer)
+            {
+                timestamp = new Date().getTime();
+                prev_timer_value = timer_value;
+                timer = setInterval( () => {
+                    timer_value = (new Date().getTime()) - timestamp + prev_timer_value;
+                    $('#timer').html(displayTimer(timer_value));
+                }, 1);
+            }
         });
 
         $('#pause').on('click', function()
         {
-            clearInterval(timer);
+            if (timer)
+            {
+                clearInterval(timer);
+                timer = null;
+            }
         });
 
         $('#stop').on('click', function()
         {
-            clearInterval(timer);
+            if (timer)
+            {
+                clearInterval(timer);
+                timer = null;
+            }
             timer_value = 0;
             $('#timer').html(displayTimer(timer_value));
         });
